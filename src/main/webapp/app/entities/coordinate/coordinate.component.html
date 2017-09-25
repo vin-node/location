@@ -1,0 +1,64 @@
+<div>
+    <h2>
+        <span>Coordinates</span>
+        <button class="btn btn-primary float-right jh-create-entity create-coordinate" [routerLink]="['/', { outlets: { popup: ['coordinate-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Coordinate
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="coordinates">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lati"><span>Lati</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="longi"><span>Longi</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="location.name"><span>Location</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let coordinate of coordinates ;trackBy: trackId">
+                <td><a [routerLink]="['../coordinate', coordinate.id ]">{{coordinate.id}}</a></td>
+                <td>{{coordinate.lati}}</td>
+                <td>{{coordinate.longi}}</td>
+                <td>
+                    <div *ngIf="coordinate.location">
+                        <a [routerLink]="['../location', coordinate.location?.id ]" >{{coordinate.location?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../coordinate', coordinate.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coordinate/'+ coordinate.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'coordinate/'+ coordinate.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

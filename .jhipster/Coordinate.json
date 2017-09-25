@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "location",
+            "otherEntityName": "location",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "lati",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longi",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20170925041050",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "coordinate",
+    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll"
+}
